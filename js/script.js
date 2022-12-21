@@ -1,4 +1,6 @@
+import ScrollSuave from './module/scroll-suave.js';
 import AccordionList from './module/accordion.js';
+import TabNav from './module/navegacao-tab.js';
 import initAnimaNumeros from './module/anima-numeros.js';
 import initAnimacaoScroll from './module/animacao-scroll.js';
 import initDropDownMenu from './module/dropdown-menu.js';
@@ -7,14 +9,13 @@ import initFetchBitcoin from './module/fetch-bitcoin.js';
 import initFuncionamento from './module/funcionamento.js';
 import initMenuMobile from './module/menu-mobile.js';
 import initModal from './module/modal.js';
-import initTabNav from './module/navegacao-tab.js';
-import ScrollSuave from './module/scroll-suave.js';
 import initTooltip from './module/tooltip.js';
 
 // ------------------------------------------------------------------------
 // MANIPULAÇÃO DE TABS DOS ANIMAIS
 // ------------------------------------------------------------------------
-initTabNav();
+const tabNav = new TabNav('.js-tabmenu li', '.js-tabcontent section');
+tabNav.init();
 
 // ------------------------------------------------------------------------
 // ACCORDION - MANIPULAÇÃO DAS FAQS(setinhas de perguntas e respostas)

@@ -1,34 +1,37 @@
 // ------------------------------------------------------------------------
 // MANIPULAÇÃO DE TABS DOS ANIMAIS
+
 // ------------------------------------------------------------------------
-export default function initTabNav() {
-  const tabMenu = document.querySelectorAll('.js-tabmenu li');
-  const tabContent = document.querySelectorAll('.js-tabcontent section');
+export default class TabNav {
+  constructor(menu, content) {
+    this.tabMenu = document.querySelectorAll(menu);
+    this.tabContent = document.querySelectorAll(content);
+  }
 
-  if (tabContent && tabMenu) {
-    // Adiciona a Class ativo ao primeiro item da lista, na ocasião de primeiro acesso ao site já iniciar com a tab
-    tabContent[0].classList.add('ativo');
-
-    function activeTab(index) {
-      tabContent.forEach((content) => {
-        // Removo a classe ativo dos demais itens da lista
-        content.classList.remove('ativo');
-      });
-
-      // Adiciono a classe ativo apenas no item que foi clicado e a classe referente ao data-set(show-down ou show-right)
-      tabContent[index].classList.add('ativo', tabContent[index].dataset.anime);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------------------------
-    /* Aqui abaixo não pode fazer o seguinte:  itemMenu.addEventListener('click', activeTab(index)}; 
-pois estaria ativando a função diretamente. O correto é apenas passar o NOME da função: itemMenu.addEventListener('click', activeTab); 
- Logo, como é necessário passar o parametro INDEX, deve-se utilizar arrowfunction e ativar a função dentro.
-*/
-
-    tabMenu.forEach((itemMenu, index) => {
-      itemMenu.addEventListener('click', () => {
-        activeTab(index);
-      });
+  // Ativa a tab de acordo com o index
+  activeTab(index) {
+    this.tabContent.forEach((content) => {
+      // Removo a classe ativo dos demais itens da lista
+      content.classList.remove('ativo');
     });
+
+    const direcaoAnimacao = this.tabContent[index].dataset.anime;
+    // Adiciono a classe ativo apenas no item que foi clicado e tbm classe referente ao data-set="anime"(show-down ou show-right)
+    this.tabContent[index].classList.add('ativo', direcaoAnimacao);
+  }
+
+  // Adicona o evento à Tab
+  addTabEvent() {
+    this.tabMenu.forEach((itemMenu, index) => {
+      itemMenu.addEventListener('click', () => this.activeTab(index));
+    });
+  }
+
+  init() {
+    if (this.tabContent.length && this.tabMenu.length) {
+      // Adiciona a Class ativo ao primeiro item da lista, na ocasião de primeiro acesso ao site já iniciar com a tab ativa
+      this.activeTab(0); // == this.tabContent[0].classList.add('ativo');
+      this.addTabEvent();
+    }
   }
 }
