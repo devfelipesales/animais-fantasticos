@@ -3,7 +3,7 @@ import AccordionList from './module/accordion.js';
 import TabNav from './module/navegacao-tab.js';
 import Modal from './module/modal.js';
 import Tooltip from './module/tooltip.js';
-import initAnimacaoScroll from './module/animacao-scroll.js';
+import AnimacaoScroll from './module/animacao-scroll.js';
 import initDropDownMenu from './module/dropdown-menu.js';
 import initFetchAnimais from './module/fetch-animais.js';
 import initFetchBitcoin from './module/fetch-bitcoin.js';
@@ -32,7 +32,8 @@ scrollSuave.init();
 // -----------------------------------------------------------------------------------------------------------------
 // INÍCIO ANIMAÇÃO SCROLL - À medida for for rolando para baixo, o conteúdo das seções aparecem
 // -----------------------------------------------------------------------------------------------------------------
-initAnimacaoScroll();
+const animacaoScroll = new AnimacaoScroll('.js-scroll');
+animacaoScroll.init();
 // ------------------------------------------------------------------------
 // MODAL - LOGIN
 // ------------------------------------------------------------------------
