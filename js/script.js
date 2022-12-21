@@ -8,7 +8,7 @@ import initFuncionamento from './module/funcionamento.js';
 import initMenuMobile from './module/menu-mobile.js';
 import initModal from './module/modal.js';
 import initTabNav from './module/navegacao-tab.js';
-import initScrollSuave from './module/scroll-suave.js';
+import ScrollSuave from './module/scroll-suave.js';
 import initTooltip from './module/tooltip.js';
 
 // ------------------------------------------------------------------------
@@ -24,7 +24,9 @@ initAccordionList();
 // ------------------------------------------------------------------------
 // INÍCIO SCROLL SUAVE - Scroll suave ao clicar nos links internos
 // ------------------------------------------------------------------------
-initScrollSuave();
+
+const scrollSuave = new ScrollSuave(".js-menu a[href^='#']");
+scrollSuave.init();
 
 // -----------------------------------------------------------------------------------------------------------------
 // INÍCIO ANIMAÇÃO SCROLL - À medida for for rolando para baixo, o conteúdo das seções aparecem
