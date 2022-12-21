@@ -2,15 +2,13 @@ import ScrollSuave from './module/scroll-suave.js';
 import AccordionList from './module/accordion.js';
 import TabNav from './module/navegacao-tab.js';
 import Modal from './module/modal.js';
-import initAnimaNumeros from './module/anima-numeros.js';
+import Tooltip from './module/tooltip.js';
 import initAnimacaoScroll from './module/animacao-scroll.js';
 import initDropDownMenu from './module/dropdown-menu.js';
 import initFetchAnimais from './module/fetch-animais.js';
 import initFetchBitcoin from './module/fetch-bitcoin.js';
 import initFuncionamento from './module/funcionamento.js';
 import initMenuMobile from './module/menu-mobile.js';
-
-import initTooltip from './module/tooltip.js';
 
 // ------------------------------------------------------------------------
 // MANIPULAÇÃO DE TABS DOS ANIMAIS
@@ -48,7 +46,8 @@ modal.init();
 // ------------------------------------------------------------------------
 // TOOLTIP - Tooltip do mapa -> Não é muito indicado, pois não é otimizado para mobile
 // ------------------------------------------------------------------------
-initTooltip();
+const tooltip = new Tooltip('[data-tooltip]');
+tooltip.init();
 
 // ------------------------------------------------------------------------
 // DROPDOWN MENU
