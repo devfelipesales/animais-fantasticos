@@ -1,28 +1,50 @@
-export default function initModal() {
-  const botaoAbrir = document.querySelector("[data-modal='abrir']");
-  const botaoFechar = document.querySelector("[data-modal='fechar']");
-  const containerModal = document.querySelector("[data-modal='container']");
+export default class Modal {
+  constructor(botaoAbrir, botaoFechar, containerModal) {
+    this.botaoAbrir = document.querySelector(botaoAbrir);
+    this.botaoFechar = document.querySelector(botaoFechar);
+    this.containerModal = document.querySelector(containerModal);
 
-  if (botaoAbrir && botaoFechar && containerModal) {
-    function abrirModal(event) {
-      event.preventDefault();
-      containerModal.classList.add('ativo');
+    // bind this ao callback para fazer referência ao objeto da classe
+    this.abrirModal = this.abrirModal.bind(this);
+    this.fecharModal = this.fecharModal.bind(this);
+    this.cliqueForaModal = this.cliqueForaModal.bind(this);
+  }
+
+  abrirModal(event) {
+    console.log(event);
+    console.log('abrir');
+    event.preventDefault();
+    this.containerModal.classList.add('ativo');
+  }
+
+  fecharModal(event) {
+    console.log(event);
+    console.log('fechar');
+    event.preventDefault();
+    this.containerModal.classList.remove('ativo');
+  }
+
+  cliqueForaModal(event) {
+    console.log(event);
+    console.log('click fora');
+    // Se o clique foi no container externo, fecha o modal
+    if (event.target === this.containerModal) {
+      this.fecharModal(event);
+    }
+  }
+
+  addModalEvents() {
+    // Nesses casos, o this do callback faz referência ao elemento do botão, ou seja, dentro das referidos métodos(abrirmodal, fecharmodal, etc) o this será o próprio elemento do botão e não a referência da classe, por isso necessário o bind nesse caso.
+    this.botaoAbrir.addEventListener('click', this.abrirModal);
+    this.botaoFechar.addEventListener('click', this.fecharModal);
+    this.containerModal.addEventListener('click', this.cliqueForaModal);
+  }
+
+  init() {
+    if (this.botaoAbrir && this.botaoFechar && this.containerModal) {
+      this.addModalEvents();
     }
 
-    function fecharModal(event) {
-      event.preventDefault();
-      containerModal.classList.remove('ativo');
-    }
-
-    function cliqueForaModal(event) {
-      // Se o clique foi no container externo(this é a section externa)
-      if (event.target === this) {
-        fecharModal(event);
-      }
-    }
-
-    botaoAbrir.addEventListener('click', abrirModal);
-    botaoFechar.addEventListener('click', fecharModal);
-    containerModal.addEventListener('click', cliqueForaModal);
+    return this;
   }
 }

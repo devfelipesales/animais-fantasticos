@@ -33,5 +33,6 @@ export default class TabNav {
       this.activeTab(0); // == this.tabContent[0].classList.add('ativo');
       this.addTabEvent();
     }
+    return this;
   }
 }
