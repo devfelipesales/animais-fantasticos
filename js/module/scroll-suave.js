@@ -2,36 +2,43 @@
 // SCROLL SUAVE - Scroll suave ao clicar nos links internos
 // ------------------------------------------------------------------------
 
-export default function initScrollSuave() {
-  //                           Seleciona os links que começam com # -> ^= Significa que começam
-  const linkInternos = document.querySelectorAll(".js-menu a[href^='#']");
-
-  if (linkInternos) {
-    function scrollToSection(event) {
-      // Previne o comportamento padrão do browser
-      event.preventDefault();
-
-      const hrefLink = this.getAttribute('href');
-      // Como o ID da section é igual ao href do link, basta selecionar a section
-      const section = document.querySelector(hrefLink);
-      // Faz o scroll até section selecionada
-      section.scrollIntoView({
-        behavior: 'smooth', // Comportamento Suave
-        block: 'start', // No começo da seção
-      });
-
-      //  -----> FORMA ALTERNATIVA <-----
-      // // Seleciona a distância até o topo da tela
-      // const topo = section.offsetTop;
-      // // Parametros: Objeto com o valor do TOPO e o comportamento(behavior)
-      // window.scrollTo({
-      //   top: topo,
-      //   behavior: "smooth",
-      // });
+export default class ScrollSuave {
+  constructor(links, options) {
+    this.linkInternos = document.querySelectorAll(links);
+    if (!options) {
+      this.options = { behavior: 'smooth', block: 'start' };
+    } else {
+      this.options = options;
     }
 
-    linkInternos.forEach((item) => {
-      item.addEventListener('click', scrollToSection);
+    // Necessário gravar esse bind, pois iria perder a referência ao utilizar dentro de addLinkEvent. No verdade, o this.options em ScrollToSections iria referenciar o this do event addEventListner, tornando o this.options como undefined
+    this.scrollToSection = this.scrollToSection.bind(this);
+
+    // Outra forma seria colocar numa constante e passar a constante no lugar do this.options dentro do método scrillToSection
+    // const options = this.options;
+  }
+
+  scrollToSection(event) {
+    event.preventDefault();
+
+    const hrefLink = event.currentTarget.getAttribute('href'); // Aqui não pode mais usar o this, pois perdeu a referência devido ao bind
+    // Como o ID da section é igual ao href do link, basta selecionar a section
+    const section = document.querySelector(hrefLink);
+    // Faz o scroll até section selecionada
+    section.scrollIntoView(this.options);
+  }
+
+  addLinkEvent() {
+    this.linkInternos.forEach((item) => {
+      item.addEventListener('click', this.scrollToSection);
     });
+  }
+
+  init() {
+    if (this.linkInternos) {
+      this.addLinkEvent();
+    }
+
+    return this; // padrão para não retornar undefined e poder usar outros métodos em cadeia, caso queira
   }
 }

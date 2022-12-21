@@ -22,7 +22,6 @@ export default function initAnimaNumeros() {
     // Caso esteja na seção desejada, não precisa ficar observando a seção novamente. Disconecta o observer e executa a animação dos números
     // mutation[0] = Seleção de apenas uma seção
     // Class ativo = O scroll está na seção correta
-    console.log(mutation);
     if (mutation[0].target.classList.contains('ativo')) {
       observer.disconnect();
       animaNumeros();
