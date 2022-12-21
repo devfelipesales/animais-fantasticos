@@ -1,3 +1,5 @@
+import debounce from './debounce.js';
+
 // -----------------------------------------------------------------------------------------------------------------
 // ANIMAÇÃO SCROLL - À medida for for rolando para baixo, o conteúdo das seções aparecem
 // -----------------------------------------------------------------------------------------------------------------
@@ -6,7 +8,7 @@ export default class AnimacaoScroll {
   constructor(sections) {
     this.sections = document.querySelectorAll(sections);
 
-    this.checkDistance = this.checkDistance.bind(this);
+    this.checkDistance = debounce(this.checkDistance.bind(this), 50);
   }
 
   // Retorna a distância de cada section em relação ao topo do site
