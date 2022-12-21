@@ -4,7 +4,7 @@ import TabNav from './module/navegacao-tab.js';
 import Modal from './module/modal.js';
 import Tooltip from './module/tooltip.js';
 import AnimacaoScroll from './module/animacao-scroll.js';
-import initDropDownMenu from './module/dropdown-menu.js';
+import DropDownMenu from './module/dropdown-menu.js';
 import initFetchAnimais from './module/fetch-animais.js';
 import initFetchBitcoin from './module/fetch-bitcoin.js';
 import initFuncionamento from './module/funcionamento.js';
@@ -53,7 +53,8 @@ tooltip.init();
 // ------------------------------------------------------------------------
 // DROPDOWN MENU
 // ------------------------------------------------------------------------
-initDropDownMenu();
+const dropDownMenu = new DropDownMenu('[data-dropdown]');
+dropDownMenu.init();
 
 // ------------------------------------------------------------------------
 // MENU MOBILE
