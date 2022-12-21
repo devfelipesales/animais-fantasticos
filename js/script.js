@@ -1,4 +1,4 @@
-import initAccordionList from './module/accordion.js';
+import AccordionList from './module/accordion.js';
 import initAnimaNumeros from './module/anima-numeros.js';
 import initAnimacaoScroll from './module/animacao-scroll.js';
 import initDropDownMenu from './module/dropdown-menu.js';
@@ -19,7 +19,8 @@ initTabNav();
 // ------------------------------------------------------------------------
 // ACCORDION - MANIPULAÇÃO DAS FAQS(setinhas de perguntas e respostas)
 // ------------------------------------------------------------------------
-initAccordionList();
+const accordionList = new AccordionList('.js-accordion dt');
+accordionList.init();
 
 // ------------------------------------------------------------------------
 // INÍCIO SCROLL SUAVE - Scroll suave ao clicar nos links internos
