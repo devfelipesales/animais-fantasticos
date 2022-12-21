@@ -2,29 +2,49 @@
 // ANIMAÇÃO SCROLL - À medida for for rolando para baixo, o conteúdo das seções aparecem
 // -----------------------------------------------------------------------------------------------------------------
 
-export default function initAnimacaoScroll() {
-  const sections = document.querySelectorAll('.js-scroll');
-  // Retorna aprox. metade da tela
-  const metadeAlturaTela = window.innerHeight * 0.6;
+export default class AnimacaoScroll {
+  constructor(sections) {
+    this.sections = document.querySelectorAll(sections);
 
-  if (sections) {
-    function animaScroll() {
-      sections.forEach((section) => {
-        // Seleciona a distância atual para o topo; OBS: getBoundingClientRect possui as distâncias top, right, bot e left
-        // Necessário fazer isso para a seção seguinte aparecer sem precisar chegar ao topo da seção
-        // sectionTop < 0 significa que chegou no topo
-        const sectionTop = section.getBoundingClientRect().top;
-        const isSectionVisible = sectionTop - metadeAlturaTela < 0;
-        if (isSectionVisible) {
-          section.classList.add('ativo');
-        } else if (section.classList.contains('ativo')) {
-          section.classList.remove('ativo');
-        }
-      });
+    this.checkDistance = this.checkDistance.bind(this);
+  }
+
+  // Retorna a distância de cada section em relação ao topo do site
+  getDistanceFromTop() {
+    // Retorna aprox. metade da tela
+    const metadeAlturaTela = window.innerHeight * 0.6;
+
+    // Precisa desestruturar ou usar Array.from, pois é um nodeList e o map só aceita array.
+    // Retorna um array com a section e a sua altura para o topo da tela
+    this.distance = [...this.sections].map((section) => {
+      // Pega a distância fixa de cada section para o topo da tela, não mais a distância com base de onde está a barra de rolamento
+      const sectionTop = section.offsetTop;
+      return {
+        element: section,
+        offsetTop: Math.floor(sectionTop - metadeAlturaTela),
+      };
+    });
+  }
+
+  // Verifica a distância em cada objeto em relação ao scroll do site
+  checkDistance() {
+    this.distance.forEach((section) => {
+      // window.scrollY => Retorna a posição atual do scroll
+      // window.scrollY ===  window.pageYOffset(desatualizado)
+      if (window.scrollY > section.offsetTop) {
+        section.element.classList.add('ativo');
+      } else if (section.element.classList.contains('ativo')) {
+        section.element.classList.remove('ativo');
+      }
+    });
+  }
+
+  init() {
+    if (this.sections.length) {
+      this.getDistanceFromTop();
+      this.checkDistance(); // Não necessário, mas inicia a primeira section já animada ao entrar no site
+      window.addEventListener('scroll', this.checkDistance);
     }
-
-    animaScroll();
-
-    window.addEventListener('scroll', animaScroll);
+    return this;
   }
 }
