@@ -1,4 +1,4 @@
-import initAnimaNumeros from './anima-numeros.js';
+import AnimaNumeros from './anima-numeros.js';
 
 // CRIAÇÃO DINÂMICA DOS FILHOS DA DIV <div class="numeros-grid"> PARA FINS DIDÁTICOS COM FETCH
 export default function initFetchAnimais() {
@@ -13,7 +13,8 @@ export default function initFetchAnimais() {
         numerosGrid.appendChild(divAnimal);
       });
       // Inicializa a animação dos números após o carregamento das divs dinâmicas
-      initAnimaNumeros();
+      const animaNumeros = new AnimaNumeros('[data-numero]', '.numeros');
+      animaNumeros.init();
     } catch (erro) {
       console.log(erro);
     }
