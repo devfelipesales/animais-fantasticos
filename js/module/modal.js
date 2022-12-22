@@ -11,22 +11,16 @@ export default class Modal {
   }
 
   abrirModal(event) {
-    console.log(event);
-    console.log('abrir');
     event.preventDefault();
     this.containerModal.classList.add('ativo');
   }
 
   fecharModal(event) {
-    console.log(event);
-    console.log('fechar');
     event.preventDefault();
     this.containerModal.classList.remove('ativo');
   }
 
   cliqueForaModal(event) {
-    console.log(event);
-    console.log('click fora');
     // Se o clique foi no container externo, fecha o modal
     if (event.target === this.containerModal) {
       this.fecharModal(event);
