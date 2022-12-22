@@ -8,7 +8,7 @@ import DropDownMenu from './module/dropdown-menu.js';
 import initFetchAnimais from './module/fetch-animais.js';
 import initFetchBitcoin from './module/fetch-bitcoin.js';
 import initFuncionamento from './module/funcionamento.js';
-import initMenuMobile from './module/menu-mobile.js';
+import MenuMobile from './module/menu-mobile.js';
 
 // ------------------------------------------------------------------------
 // MANIPULAÇÃO DE TABS DOS ANIMAIS
@@ -59,8 +59,8 @@ dropDownMenu.init();
 // ------------------------------------------------------------------------
 // MENU MOBILE
 // ------------------------------------------------------------------------
-initMenuMobile();
-
+const menuMobile = new MenuMobile('[data-menu="button"]', '[data-menu="list"]');
+menuMobile.init();
 // ------------------------------------------------------------------------
 // ANIMA NUMEROS
 // ------------------------------------------------------------------------
