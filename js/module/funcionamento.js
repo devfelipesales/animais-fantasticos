@@ -12,28 +12,51 @@ Meses do ano:
 11 - Dezembro
 */
 
-export default function initFuncionamento() {
-  const funcionamento = document.querySelector('[data-semana]');
+export default class Funcionamento {
+  constructor(funcionamento) {
+    this.funcionamento = document.querySelector(funcionamento);
+  }
 
-  // Split -> Converte a String "1,2,3,4,5" em um array separando por vírgulas;
-  // Bizu: .map(number) ->  Converte o Array de String em número.(O Map retorna uma novo array)
-  const diasSemana = funcionamento.dataset.semana.split(',').map(Number);
-  const horarioSemana = funcionamento.dataset.horario.split(',').map(Number);
+  dadosFuncionamento() {
+    // Dias e Horário de funcionamento
+    // -------------------------------------------------
+    // Split -> Converte a String "1,2,3,4,5" em um array separando por vírgulas;
+    // Bizu: .map(number) ->  Converte o Array de String em número.(O Map retorna uma novo array)
+    this.diasSemana = this.funcionamento.dataset.semana.split(',').map(Number);
+    this.horarioSemana = this.funcionamento.dataset.horario
+      .split(',')
+      .map(Number);
+  }
 
-  const dataAgora = new Date();
-  const diaAgora = dataAgora.getDay();
-  const horarioAgora = dataAgora.getHours();
+  verificaFuncionamento() {
+    this.dadosFuncionamento(); // Recebe os dados de dias e horários de funcionamento
 
-  // indexOF -> Caso o valor exista no array, retorna o index do valor encontrado; caso contrário, retorna -1
-  // semanaAberto recebe true ou false com base na expressao
-  const semanaAberto = diasSemana.indexOf(diaAgora) !== -1;
+    // Retorna valores atuais
+    const dataAgora = new Date();
+    const diaAgora = dataAgora.getDay();
+    const horarioAgora = dataAgora.getUTCHours() - 3; // horário de brasília. Caso contrário pega o horário da máquina
+    // const horarioAgora = dataAgora.getHours();
 
-  // horarioSemana[0] = 8h, horarioSemana[1] = 18h
-  // horarioAberto recebe true ou false com base na expressao
-  const horarioAberto =
-    horarioAgora >= horarioSemana[0] && horarioAgora < horarioSemana[1];
+    // indexOF -> Caso o valor exista no array, retorna o index do valor encontrado; caso contrário, retorna -1
+    // semanaAberto recebe true ou false com base na expressao
+    const semanaAberto = this.diasSemana.indexOf(diaAgora) !== -1;
 
-  if (semanaAberto && horarioAberto) {
-    funcionamento.classList.add('aberto');
+    // horarioSemana[0] = 8h, horarioSemana[1] = 18h
+    // horarioAberto recebe true ou false com base na expressao
+    const horarioAberto =
+      horarioAgora >= this.horarioSemana[0] &&
+      horarioAgora < this.horarioSemana[1];
+
+    if (semanaAberto && horarioAberto) {
+      this.funcionamento.classList.add('aberto');
+    }
+  }
+
+  init() {
+    if (this.funcionamento) {
+      this.verificaFuncionamento();
+    }
+
+    return this;
   }
 }

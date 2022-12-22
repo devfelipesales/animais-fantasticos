@@ -7,7 +7,7 @@ import AnimacaoScroll from './module/animacao-scroll.js';
 import DropDownMenu from './module/dropdown-menu.js';
 import initFetchAnimais from './module/fetch-animais.js';
 import initFetchBitcoin from './module/fetch-bitcoin.js';
-import initFuncionamento from './module/funcionamento.js';
+import Funcionamento from './module/funcionamento.js';
 import MenuMobile from './module/menu-mobile.js';
 
 // ------------------------------------------------------------------------
@@ -71,8 +71,8 @@ menuMobile.init();
 // HORÁRIO DE FUNCIONAMENTO
 // ------------------------------------------------------------------------
 
-initFuncionamento();
-
+const funcionamento = new Funcionamento('[data-semana]');
+funcionamento.init();
 // ----------------------------------------------------------------------------------------------
 // CRIAÇÃO DINÂMICA DOS FILHOS DA DIV <div class="numeros-grid"> PARA FINS DIDÁTICOS COM FETCH
 // -----------------------------------------------------------------------------------------------
