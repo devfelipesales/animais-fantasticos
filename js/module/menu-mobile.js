@@ -14,6 +14,7 @@ export default class MenuMobile {
   }
 
   openMenu(event) {
+    event.preventDefault(); // Prevenir bug do mobile que dava 2 clicks de ambos os eventos
     this.menuList.classList.add('active');
     this.menuButton.classList.add('active');
     // Passa o elemento data-menu="list" id="menu"
