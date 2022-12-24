@@ -9,6 +9,7 @@ import initFetchAnimais from './module/fetch-animais.js';
 import initFetchBitcoin from './module/fetch-bitcoin.js';
 import Funcionamento from './module/funcionamento.js';
 import MenuMobile from './module/menu-mobile.js';
+import SlideNav from './module/slide.js';
 
 // ------------------------------------------------------------------------
 // MANIPULAÇÃO DE TABS DOS ANIMAIS
@@ -84,3 +85,12 @@ initFetchAnimais();
 // -----------------------------------------------------------------------------------------------
 
 initFetchBitcoin();
+
+// ----------------------------------------------------------------------------------------------
+// Slide
+// -----------------------------------------------------------------------------------------------
+
+const slide = new SlideNav('.slide', '.slide-wrapper');
+slide.init();
+// slide.addArrow('.prev', '.next'); // sem navegação por arrow
+slide.addControl('.custom-controls');
